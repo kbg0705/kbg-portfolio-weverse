@@ -60,7 +60,7 @@ export function HomePage() {
     <>
       <DesktopOnlyNotice />
       <div className="app-shell">
-        <Header email={email} activeSection={activeSection} onCopyEmail={handleCopyEmail} />
+        <Header activeSection={activeSection} />
         <main>
           <Hero />
           <ImpactMetrics />
