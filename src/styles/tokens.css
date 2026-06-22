@@ -1,0 +1,15 @@
+:root {
+  --color-background: #f7f7f3;
+  --color-surface: #ffffff;
+  --color-text-primary: #171717;
+  --color-text-secondary: #6b6b66;
+  --color-border: #d8d8d2;
+  --color-accent: #6157ff;
+  --color-accent-soft: #eeecff;
+  --color-grid: rgba(23, 23, 23, 0.06);
+  --font-korean: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+  --font-english: Inter, Geist, ui-sans-serif, system-ui, sans-serif;
+  --container: 1200px;
+  --page-gutter: 64px;
+  --header-height: 76px;
+}
