@@ -6,7 +6,7 @@ import { ImagePlaceholder } from './common/ImagePlaceholder';
 export function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
   return (
     <article className={`project-card project-card--${project.tier}${compact ? ' is-compact' : ''}`}>
-      <div className="project-card__meta"><span>{String(project.order).padStart(2, '0')}</span><p>{project.service}</p></div>
+      <div className="project-card__meta"><span>{String(project.order).padStart(2, '0')}</span><p>{project.cardMeta ?? project.service}</p></div>
       {project.thumbnail && !compact ? <ImagePlaceholder image={project.thumbnail} /> : null}
       <div className="project-card__content">
         <p className="project-card__category">{project.category.join(' · ')}</p>
