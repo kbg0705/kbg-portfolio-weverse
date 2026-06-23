@@ -1,7 +1,7 @@
 export const profile = {
   name: '김부경',
   role: 'Product Manager',
-  email: 'kimbu0705@gmail.com',
+  email: 'kbg010705@naver.com',
   github: 'https://github.com/kbg0705',
   summary: '사용자 문제를 발견해 실행 가능한 제품 요구사항으로 구체화하는 Product Manager입니다.',
   profile: [
