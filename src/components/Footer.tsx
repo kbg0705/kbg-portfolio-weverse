@@ -1,48 +1,28 @@
-import { ArrowUpRight, Github, Mail } from 'lucide-react';
-import { profile } from '../data/profile';
+import { ArrowUpRight, BriefcaseBusiness, Mail, UserRound } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-type FooterProps = {
-  email: string;
-};
-
-export function Footer({ email }: FooterProps) {
-  const copyEmail = () => {
-    void navigator.clipboard?.writeText(email);
-  };
-
+export function Footer({ email }: { email: string }) {
   return (
-    <footer className="site-footer" id="contact">
+    <footer className="site-footer">
       <div className="footer-copy">
-        <p className="eyebrow">Contact</p>
-        <h2>Let&apos;s build a clearer product experience.</h2>
-        <p>사용자의 막힘을 발견하고 제품으로 바꾸는 과정에 대해 이야기하고 싶습니다.</p>
+        <p className="eyebrow">Let’s work together</p>
+        <h2>사용자의 막힘을 제품의 기회로 바꾸겠습니다.</h2>
+        <p>주니어 프로덕트 매니저 김부경입니다. 함께 이야기할 기회를 기다리겠습니다.</p>
       </div>
-
       <div className="footer-actions" aria-label="연락처 및 외부 링크">
-        <a className="footer-action footer-action--primary" href={`mailto:${email}`}>
-          <span>
-            <Mail size={18} aria-hidden="true" />
-            이메일 보내기
-          </span>
+        <Link className="footer-action footer-action--primary" to="/contact">
+          <span><Mail size={18} /> 연락하기</span>
           <strong>{email}</strong>
-          <ArrowUpRight size={18} aria-hidden="true" />
-        </a>
-
+          <ArrowUpRight size={18} />
+        </Link>
         <div className="footer-action-row">
-          <button className="footer-action footer-action--secondary" type="button" onClick={copyEmail}>
-            이메일 복사
-          </button>
-          <a className="footer-action footer-action--secondary" href={profile.github} target="_blank" rel="noreferrer">
-            <Github size={17} aria-hidden="true" />
-            GitHub 보기
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
+          <Link className="footer-action" to="/about"><UserRound size={17} /> About</Link>
+          <Link className="footer-action" to="/work"><BriefcaseBusiness size={17} /> Work</Link>
         </div>
       </div>
-
       <div className="footer-meta">
-        <span>© 2026 Kim Bugyeong</span>
-        <span>Product Manager Portfolio</span>
+        <span>Kim Bugyeong · Product Manager Portfolio</span>
+        <span>Last updated: 2026</span>
       </div>
     </footer>
   );

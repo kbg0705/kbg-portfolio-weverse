@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
+import { LockKeyhole } from 'lucide-react';
 
-export function ConfidentialityNotice({ children }: { children: ReactNode }) {
+export function ConfidentialityNotice({ children }: { children: string }) {
   return (
-    <aside className="confidentiality-notice" aria-label="비식별화 안내">
-      <span>Confidentiality</span>
+    <aside className="confidentiality">
+      <LockKeyhole size={20} />
       <p>{children}</p>
     </aside>
   );

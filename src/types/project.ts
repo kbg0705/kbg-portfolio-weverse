@@ -1,5 +1,5 @@
 export type ProjectTier = 'featured' | 'compact' | 'archive';
-export type ProjectStatus = 'measured' | 'delivered' | 'recognition' | 'simulated';
+export type OutcomeType = 'measured' | 'delivered' | 'recognition' | 'simulated';
 export type ImageKind = 'cover' | 'evidence' | 'decision' | 'product' | 'artifact' | 'outcome';
 
 export type ProjectImage = {
@@ -8,7 +8,6 @@ export type ProjectImage = {
   caption: string;
   type: ImageKind;
   aspectRatio: '16:10' | '4:3' | '9:16' | '2:1' | '1:1';
-  objectFit?: 'cover' | 'contain';
   isConfidential?: boolean;
   placeholderTitle: string;
   placeholderDescription: string;
@@ -18,7 +17,7 @@ export type Outcome = {
   value: string;
   label: string;
   description: string;
-  type: ProjectStatus;
+  type: OutcomeType;
 };
 
 export type Evidence = {
@@ -41,8 +40,6 @@ export type Project = {
   order: number;
   tier: ProjectTier;
   service: string;
-  company?: string;
-  cardMeta?: string;
   category: string[];
   title: string;
   tagline: string;

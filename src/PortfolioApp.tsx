@@ -1,6 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
 import { PortfolioHomePage } from './pages/PortfolioHomePage';
 import { ProjectCasePage } from './pages/ProjectCasePage';
+import { WorkPage } from './pages/WorkPage';
 
 function getBasename() {
   return window.location.pathname.startsWith('/miricanvas-junior-pm-portfolio')
@@ -11,14 +15,47 @@ function getBasename() {
 export default function PortfolioApp() {
   return (
     <BrowserRouter basename={getBasename()}>
+      <HashRouteRedirect />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<PortfolioHomePage />} />
+        <Route path="/work" element={<WorkPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/projects/:slug" element={<ProjectCasePage />} />
-        <Route path="/work" element={<Navigate to={{ pathname: '/', hash: '#work' }} replace />} />
-        <Route path="/about" element={<Navigate to={{ pathname: '/', hash: '#about' }} replace />} />
-        <Route path="/contact" element={<Navigate to={{ pathname: '/', hash: '#contact' }} replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
+}
+
+function HashRouteRedirect() {
+  const { hash, pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const routesByHash: Record<string, string> = {
+      '#home': '/',
+      '#work': '/work',
+      '#about': '/about',
+      '#contact': '/contact',
+    };
+
+    const nextPath = routesByHash[hash];
+    if (pathname === '/' && nextPath && nextPath !== pathname) {
+      navigate(nextPath, { replace: true });
+    }
+  }, [hash, navigate, pathname]);
+
+  return null;
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [pathname]);
+
+  return null;
 }

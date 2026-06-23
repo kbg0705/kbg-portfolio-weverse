@@ -1,41 +1,64 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import type { MouseEvent } from 'react';
 import { useEffect, useRef } from 'react';
 import type { ProjectImage } from '../../types/project';
-import { resolveAssetPath } from '../../utils/assets';
 import { ImagePlaceholder } from './ImagePlaceholder';
 
-export function ImageModal({ images, index, onClose, onChange }: { images: ProjectImage[]; index: number | null; onClose: () => void; onChange: (index: number) => void }) {
-  const closeRef = useRef<HTMLButtonElement | null>(null);
-  const image = index === null ? undefined : images[index];
+export function ImageModal({
+  images,
+  index,
+  onClose,
+  onMove,
+}: {
+  images: ProjectImage[];
+  index: number;
+  onClose: () => void;
+  onMove: (nextIndex: number) => void;
+}) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const image = images[index];
+
   useEffect(() => {
-    if (!image) return;
-    const previous = document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    closeRef.current?.focus();
-    const keydown = (event: KeyboardEvent) => {
+    dialogRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
-      if (event.key === 'ArrowLeft') onChange((index! - 1 + images.length) % images.length);
-      if (event.key === 'ArrowRight') onChange((index! + 1) % images.length);
-      if (event.key === 'Tab') {
-        const dialog = document.querySelector<HTMLElement>('[data-image-dialog]');
-        const items = dialog?.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])');
-        if (!items?.length) return;
-        const first = items[0];
-        const last = items[items.length - 1];
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-        if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      if (event.key === 'ArrowLeft') onMove((index - 1 + images.length) % images.length);
+      if (event.key === 'ArrowRight') onMove((index + 1) % images.length);
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>('button,[href],[tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
-    window.addEventListener('keydown', keydown);
-    return () => { document.body.style.overflow = previous; window.removeEventListener('keydown', keydown); };
-  }, [image, images.length, index, onChange, onClose]);
-  if (!image || index === null) return null;
-  const backdrop = (event: MouseEvent<HTMLDivElement>) => { if (event.target === event.currentTarget) onClose(); };
-  return <div className="image-modal" onMouseDown={backdrop}><div className="image-modal__dialog" role="dialog" aria-modal="true" aria-label={image.alt} data-image-dialog>
-    <button ref={closeRef} className="icon-button image-modal__close" type="button" onClick={onClose} aria-label="닫기"><X /></button>
-    {image.src?.trim() ? <img src={resolveAssetPath(image.src)} alt={image.alt} /> : <ImagePlaceholder image={image} />}
-    <p>{image.caption}</p>
-    {images.length > 1 ? <div className="image-modal__navigation"><button type="button" onClick={() => onChange((index - 1 + images.length) % images.length)}><ChevronLeft /> 이전</button><span>{index + 1} / {images.length}</span><button type="button" onClick={() => onChange((index + 1) % images.length)}>다음 <ChevronRight /></button></div> : null}
-  </div></div>;
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [image, images.length, index, onClose, onMove]);
+
+  return (
+    <div className="image-modal" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <div className="image-modal__dialog" role="dialog" aria-modal="true" aria-label={image.caption} tabIndex={-1} ref={dialogRef}>
+        <button className="icon-button image-modal__close" type="button" onClick={onClose} aria-label="이미지 닫기"><X size={18} /></button>
+        <ImagePlaceholder image={image} />
+        <p>{image.caption}</p>
+        <div className="image-modal__navigation">
+          <button className="secondary-action" type="button" onClick={() => onMove((index - 1 + images.length) % images.length)}><ChevronLeft size={17} /> 이전</button>
+          <span>{index + 1} / {images.length}</span>
+          <button className="secondary-action" type="button" onClick={() => onMove((index + 1) % images.length)}>다음 <ChevronRight size={17} /></button>
+        </div>
+      </div>
+    </div>
+  );
 }

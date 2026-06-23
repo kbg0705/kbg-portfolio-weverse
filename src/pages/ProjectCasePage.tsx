@@ -43,23 +43,30 @@ export function ProjectCasePage() {
   useEffect(() => {
     if (!project) return;
     document.title = `${project.title} | 김부경 Product Manager Portfolio`;
+    const description = project.tagline;
     let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (!meta) {
       meta = document.createElement('meta');
       meta.name = 'description';
       document.head.appendChild(meta);
     }
-    meta.content = project.tagline;
+    meta.content = description;
   }, [project]);
 
   if (!project || !detail) {
     return <><Header /><main className="page-shell not-found"><h1>프로젝트를 찾을 수 없습니다.</h1><Link to="/work">전체 프로젝트로 돌아가기</Link></main><Footer email={profile.email} /></>;
   }
 
-  const openImage = (image: ProjectImage) => {
-    const nextIndex = images.findIndex((item) => item.placeholderTitle === image.placeholderTitle);
-    setModalIndex(nextIndex >= 0 ? nextIndex : 0);
-  };
+  const openImage = (image: ProjectImage) => setModalIndex(Math.max(0, images.findIndex((item) => item.placeholderTitle === image.placeholderTitle)));
 
-  return <><Header /><main className="project-page"><ProjectDetailView project={project} detail={detail} active={active} onOpen={openImage} /></main><Footer email={profile.email} /><ImageModal images={images} index={modalIndex} onClose={() => setModalIndex(null)} onChange={setModalIndex} /></>;
+  return (
+    <>
+      <Header />
+      <main className="project-page">
+        <ProjectDetailView project={project} detail={detail} active={active} onOpen={openImage} />
+      </main>
+      <Footer email={profile.email} />
+      {modalIndex !== null ? <ImageModal images={images} index={modalIndex} onClose={() => setModalIndex(null)} onMove={setModalIndex} /> : null}
+    </>
+  );
 }
