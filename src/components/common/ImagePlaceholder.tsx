@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import type { ProjectImage } from '../../types/project';
 
 function resolveAssetPath(src: string) {
@@ -6,7 +7,7 @@ function resolveAssetPath(src: string) {
   return `${base}${src.replace(/^\/+/, '')}`;
 }
 
-export function ImagePlaceholder({ image, onOpen }: { image: ProjectImage; onOpen?: () => void }) {
+export function ImagePlaceholder({ image, onOpen, to }: { image: ProjectImage; onOpen?: () => void; to?: string }) {
   const content = (
     <>
       <span>IMAGE REQUIRED</span>
@@ -17,6 +18,15 @@ export function ImagePlaceholder({ image, onOpen }: { image: ProjectImage; onOpe
   );
 
   if (image.src) {
+    if (to) {
+      return (
+        <Link className="image-placeholder has-image" to={to}>
+          <img src={resolveAssetPath(image.src)} alt={image.alt} loading="lazy" />
+          <em>{image.caption}</em>
+        </Link>
+      );
+    }
+
     return (
       <button type="button" className="image-placeholder has-image" onClick={onOpen}>
         <img src={resolveAssetPath(image.src)} alt={image.alt} loading="lazy" />
@@ -27,6 +37,8 @@ export function ImagePlaceholder({ image, onOpen }: { image: ProjectImage; onOpe
 
   return onOpen ? (
     <button type="button" className="image-placeholder" onClick={onOpen}>{content}</button>
+  ) : to ? (
+    <Link className="image-placeholder" role="img" aria-label={image.alt} to={to}>{content}</Link>
   ) : (
     <div className="image-placeholder" role="img" aria-label={image.alt}>{content}</div>
   );
