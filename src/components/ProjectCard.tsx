@@ -1,21 +1,24 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../types/project';
-import { ImagePlaceholder } from './common/ImagePlaceholder';
+import { ProjectThumbnail } from './project/ProjectThumbnail';
 
 export function ProjectCard({ project, compact = false }: { project: Project; compact?: boolean }) {
+  const primaryOutcome = project.impact[0];
+
   return (
     <article className={`project-card project-card--${project.tier}${compact ? ' is-compact' : ''}`}>
-      <div className="project-card__meta"><span>{String(project.order).padStart(2, '0')}</span><p>{project.cardMeta ?? project.service}</p></div>
-      {project.thumbnail && !compact ? <ImagePlaceholder image={project.thumbnail} /> : null}
+      <div className="project-card__meta"><span>{String(project.order).padStart(2, '0')}</span><p>{project.company ?? project.service}</p></div>
+      <ProjectThumbnail compact={compact} project={project} />
       <div className="project-card__content">
-        <p className="project-card__category">{project.category.join(' · ')}</p>
         <h3>{project.title}</h3>
-        <p className="project-card__tagline">{project.tagline}</p>
-        {compact ? <p className="project-card__description">{project.description ?? project.problem}</p> : <div className="project-card__logic"><div><span>Problem</span><p>{project.problem}</p></div><div><span>Decision</span><p>{project.decision}</p></div></div>}
-        <div className="outcome-inline">{project.impact.slice(0, compact ? 2 : 3).map((item) => <span key={`${item.value}-${item.label}`} data-type={item.type}><strong>{item.value}</strong>{item.label}</span>)}</div>
-        <div className="tag-list">{project.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
-        {project.detailPageEnabled ? <Link className="detail-link" to={`/projects/${project.slug}`}>Case Study <ArrowUpRight size={17} /></Link> : null}
+        <p className="project-card__description">{project.problem}</p>
+        <dl className="project-card__facts">
+          <div><dt>Role</dt><dd>{project.role}</dd></div>
+          <div><dt>{primaryOutcome ? 'Outcome' : 'Status'}</dt><dd>{primaryOutcome ? `${primaryOutcome.value} · ${primaryOutcome.label}` : project.status}</dd></div>
+        </dl>
+        <div className="tag-list">{project.tags.slice(0, compact ? 2 : 3).map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
+        {project.detailPageEnabled ? <Link className="detail-link" to={`/projects/${project.slug}`}>Case Study <ArrowUpRight size={17} /></Link> : <span className="detail-link detail-link--disabled">Overview</span>}
       </div>
     </article>
   );
