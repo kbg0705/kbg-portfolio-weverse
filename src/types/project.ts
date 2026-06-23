@@ -8,6 +8,7 @@ export type ProjectImage = {
   caption: string;
   type: ImageKind;
   aspectRatio: '16:10' | '4:3' | '9:16' | '2:1' | '1:1';
+  objectFit?: 'cover' | 'contain';
   isConfidential?: boolean;
   placeholderTitle: string;
   placeholderDescription: string;
