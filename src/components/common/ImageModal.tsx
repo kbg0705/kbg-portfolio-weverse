@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import type { MouseEvent } from 'react';
 import { useEffect, useRef } from 'react';
 import type { ProjectImage } from '../../types/project';
+import { resolveAssetPath } from '../../utils/assets';
 import { ImagePlaceholder } from './ImagePlaceholder';
 
 export function ImageModal({ images, index, onClose, onChange }: { images: ProjectImage[]; index: number | null; onClose: () => void; onChange: (index: number) => void }) {
@@ -33,7 +34,7 @@ export function ImageModal({ images, index, onClose, onChange }: { images: Proje
   const backdrop = (event: MouseEvent<HTMLDivElement>) => { if (event.target === event.currentTarget) onClose(); };
   return <div className="image-modal" onMouseDown={backdrop}><div className="image-modal__dialog" role="dialog" aria-modal="true" aria-label={image.alt} data-image-dialog>
     <button ref={closeRef} className="icon-button image-modal__close" type="button" onClick={onClose} aria-label="닫기"><X /></button>
-    {image.src ? <img src={image.src} alt={image.alt} /> : <ImagePlaceholder image={image} />}
+    {image.src?.trim() ? <img src={resolveAssetPath(image.src)} alt={image.alt} /> : <ImagePlaceholder image={image} />}
     <p>{image.caption}</p>
     {images.length > 1 ? <div className="image-modal__navigation"><button type="button" onClick={() => onChange((index - 1 + images.length) % images.length)}><ChevronLeft /> 이전</button><span>{index + 1} / {images.length}</span><button type="button" onClick={() => onChange((index + 1) % images.length)}>다음 <ChevronRight /></button></div> : null}
   </div></div>;
