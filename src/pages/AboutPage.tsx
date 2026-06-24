@@ -20,7 +20,7 @@ export function AboutPage() {
         </header>
 
         <section className="about-proof" aria-label="경력 요약">
-          <div><strong>3</strong><span>제품 조직 경험</span></div>
+          <div><strong>2년 7개월</strong><span>총 실무 경험</span></div>
           <div><strong>14</strong><span>Sprint 운영</span></div>
           <div><strong>4.29</strong><span>학부 GPA / 4.5</span></div>
           <div><strong>2026</strong><span>서비스디자인 석사과정</span></div>
@@ -37,6 +37,7 @@ export function AboutPage() {
                 <div className="career-item__index">{String(index + 1).padStart(2, '0')}</div>
                 <div className="career-item__meta">
                   <span>{item.period}</span>
+                  <span className="career-item__duration">{item.duration}</span>
                   <strong>{item.company}</strong>
                   <p>{item.role} · {item.team}</p>
                 </div>

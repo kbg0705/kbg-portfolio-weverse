@@ -14,6 +14,7 @@ export const profile = {
   career: [
     {
       period: '2025.03 - 현재',
+      duration: '1년 3개월',
       company: '(주)프린트뱅크',
       role: '서비스 기획 · Product Manager',
       team: '마케팅팀',
@@ -26,7 +27,8 @@ export const profile = {
     },
     {
       period: '2024.07 - 2025.02',
-      company: '비상',
+      duration: '8개월',
+      company: '비상교육',
       role: '서비스 기획',
       team: 'AIDT 시스템기획팀',
       summary: 'AI 디지털교과서 기반 인쇄 서비스와 품질 검증 문서를 기획했습니다.',
@@ -38,6 +40,7 @@ export const profile = {
     },
     {
       period: '2023.07 - 2024.02',
+      duration: '8개월',
       company: '(주)매직에꼴',
       role: '서비스 기획 · PO',
       team: '기획팀',

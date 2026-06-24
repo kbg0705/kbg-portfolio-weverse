@@ -285,6 +285,7 @@ button.image-placeholder.has-image{
 .career-item__index{color:var(--p-accent);font-size:14px;font-weight:850}
 .career-item__meta{display:grid;align-content:start;gap:9px}
 .career-item__meta span{color:var(--p-muted);font-size:12px;font-weight:750}
+.career-item__meta .career-item__duration{color:var(--p-accent)}
 .career-item__meta strong{font-size:22px}
 .career-item__meta p{margin:0;color:var(--p-muted);line-height:1.55}
 .career-item__body>p{margin-top:0;font-size:18px;line-height:1.65;font-weight:700}
