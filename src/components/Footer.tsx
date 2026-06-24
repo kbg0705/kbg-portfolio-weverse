@@ -11,9 +11,9 @@ export function Footer({ email }: { email: string }) {
       </div>
       <div className="footer-actions" aria-label="연락처 및 외부 링크">
         <Link className="footer-action footer-action--primary" to="/contact">
-          <span><Mail size={18} /> 연락하기</span>
+          <span className="footer-action__label"><Mail size={18} /> <span>연락하기</span></span>
           <strong>{email}</strong>
-          <ArrowUpRight size={18} />
+          <ArrowUpRight className="footer-action__arrow" size={18} />
         </Link>
         <div className="footer-action-row">
           <Link className="footer-action" to="/about"><UserRound size={17} /> About</Link>
