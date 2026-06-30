@@ -34,13 +34,11 @@ export function WorkPage() {
         <WorkGroup
           eyebrow="Professional"
           title="실무 프로젝트"
-          description="제품 조직에서 기획, 협업, 출시와 검증까지 수행한 작업입니다."
           projects={practicalProjects}
         />
         <WorkGroup
           eyebrow="Academic"
           title="학부 및 대학원 프로젝트"
-          description="학업과 연구 과정에서 문제 정의, 프로토타입, 서비스 구조를 검증한 작업입니다."
           projects={academicProjects}
         />
       </main>
@@ -52,12 +50,10 @@ export function WorkPage() {
 function WorkGroup({
   eyebrow,
   title,
-  description,
   projects,
 }: {
   eyebrow: string;
   title: string;
-  description: string;
   projects: typeof import('../data/projects').projects;
 }) {
   if (!projects.length) return null;
@@ -66,7 +62,6 @@ function WorkGroup({
     <section className="work-list">
       <div className="work-list__heading">
         <div><p className="eyebrow">{eyebrow}</p><h2>{title}</h2></div>
-        <p>{description}</p>
       </div>
       <div className="work-grid">
         {projects.map((project) => <ProjectCard compact uniform key={project.slug} project={project} />)}

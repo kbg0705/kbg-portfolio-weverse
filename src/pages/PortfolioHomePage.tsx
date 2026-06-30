@@ -34,9 +34,9 @@ export function PortfolioHomePage() {
       <main className="home-main">
         <section className="home-hero" aria-labelledby="home-hero-title">
           <div className="home-hero__content">
-            <p className="eyebrow">Weverse Company · Service Planning</p>
+            <p className="eyebrow">Service Planning</p>
             <h1 id="home-hero-title">
-              팬과 운영자가 만나는 서비스의 규칙을,
+              사용자와 운영자가 만나는 서비스의 흐름을,
               <span> 제품 구조로 정리하는 김부경입니다.</span>
             </h1>
             <p className="home-hero__summary">
@@ -70,7 +70,7 @@ export function PortfolioHomePage() {
         <section className="home-section">
           <SectionTitle
             eyebrow="Works"
-            title="서비스 기획 역량이 잘 드러나는 대표 작업 3가지입니다."
+            title="대표 작업 3가지"
           />
           <div className="compact-grid home-featured-grid">
             {representativeProjects.map((project) => (
@@ -80,8 +80,12 @@ export function PortfolioHomePage() {
         </section>
 
         <section className="home-about">
-          <p className="eyebrow">How I work</p>
-          <h2>사용자 경험과 운영 기준이 어긋나는 지점을 찾아 제품 정책으로 연결합니다.</h2>
+          <p className="eyebrow">About</p>
+          <h2>
+            사용자 경험과 운영 기준이 어긋나는 지점을 찾아
+            <br />
+            제품 정책으로 연결합니다.
+          </h2>
           <div>
             {briefPrinciples.map((item, index) => (
               <article key={item}>
