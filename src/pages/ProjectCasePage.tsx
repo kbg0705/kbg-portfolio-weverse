@@ -42,7 +42,7 @@ export function ProjectCasePage() {
 
   useEffect(() => {
     if (!project) return;
-    document.title = `${project.title} | 김부경 Product Manager Portfolio`;
+    document.title = '김부경 | 포트폴리오';
     const description = project.tagline;
     let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
     if (!meta) {

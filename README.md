@@ -1,4 +1,4 @@
-# 김부경 Product Manager Portfolio
+# 김부경 | 포트폴리오
 
 서비스 기획 직무 지원을 위한 PC 전용 포트폴리오입니다. React, TypeScript, Vite 기반이며 GitHub Pages 배포를 기준으로 구성했습니다.
 
