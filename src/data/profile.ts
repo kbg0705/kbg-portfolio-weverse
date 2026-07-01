@@ -16,7 +16,7 @@ export const profile = {
       period: '2025.03 - 현재',
       duration: '1년 3개월',
       company: '(주)프린트뱅크',
-      role: '서비스 기획 · Product Manager',
+      role: '서비스 기획 · PO',
       team: '마케팅팀',
       summary: '인쇄 이커머스의 FO·BO 정책과 기능을 개선하고 운영 이슈를 제품 백로그로 전환합니다.',
       highlights: [
