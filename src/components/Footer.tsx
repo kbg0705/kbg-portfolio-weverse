@@ -25,7 +25,7 @@ export function Footer({ email }: { email: string }) {
         </div>
       </div>
       <div className="footer-meta">
-        <span>Kim Bugyeong · Product Manager Portfolio</span>
+        <span>Kim Bugyeong · Portfolio</span>
         <span>Last updated: 2026</span>
       </div>
     </footer>

@@ -11,7 +11,7 @@ export function ContactPage() {
       <main className="page-shell contact-page">
         <header className="page-hero">
           <p className="eyebrow">Contact</p>
-          <h1>사용자의 막힘을 제품의 기회로 바꾸겠습니다.</h1>
+          <h1>팬과 운영자가 함께 움직이는 서비스를 더 선명한 제품 경험으로 만들겠습니다.</h1>
           <p>프로젝트, 협업, 포트폴리오에 대해 편하게 연락 주세요.</p>
           <div className="hero-actions">
             <Link className="primary-action" to="/work">
